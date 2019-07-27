@@ -1,7 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 import * as vscode from "vscode";
-import { User, UserService } from "./user";
-
+import {  UserService } from "./user";
 export function activate(context: vscode.ExtensionContext) {
   // gnerate user service
   const userService = new UserService(context);
@@ -25,7 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
   // login command
   let login = vscode.commands.registerCommand("extension.hacpicr.login", () => {
     userService.inputUser(() => {
-      
+      userService.connect();
     });
   });
 
@@ -38,6 +37,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   if (userService.checkUserLogin) {
+    userService.connect();
   } else {
     vscode.commands.executeCommand("extension.hacpicr.welcom");
   }

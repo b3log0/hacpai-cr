@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 const HACKPI_USER = "hacpi.user";
+import * as request from "request";
 export interface User {
   username: string;
   password: string;
@@ -50,5 +51,10 @@ export class UserService {
 
   public logoutUser(): void {
     this.context.globalState.update(HACKPI_USER, null);
+  }
+
+  // TODO: sent request to server
+  public connect(): void {
+    
   }
 }
