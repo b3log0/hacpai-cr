@@ -68,7 +68,5 @@
     "vscode-test": "^1.0.2"
   },
   "dependencies": {
-    "@types/rx": "^4.1.1",
-    "rxjs": "^6.5.2"
   }
 }
