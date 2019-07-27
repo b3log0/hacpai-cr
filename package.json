@@ -10,8 +10,9 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.hacpicr.login",
     "onCommand:extension.hacpicr.welcom",
+    "onCommand:extension.hacpicr.login",
+    "onCommand:extension.hacpicr.logout",
     "onView:view.hacpi.cr"
   ],
   "main": "./out/extension.js",
@@ -19,14 +20,14 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "hacpi",
-          "title": "hacpi",
+          "id": "hacpicr",
+          "title": "hacpicr",
           "icon": "resources/hacpi.svg"
         }
       ]
     },
     "views": {
-      "hacpi": [
+      "hacpicr": [
         {
           "id": "view.hacpi.cr",
           "name": "hacpi Chat Room"
@@ -35,12 +36,16 @@
     },
     "commands": [
       {
-        "command": "extension.hacpicr.login",
-        "title": "HacpiLogin"
+        "command": "extension.hacpicr.welcom",
+        "title": "Hacpicr: Welcom"
       },
       {
-        "command": "extension.hacpicr.welcom",
-        "title": "HacpiWelcom"
+        "command": "extension.hacpicr.login",
+        "title": "Hacpicr: Login"
+      },
+      {
+        "command": "extension.hacpicr.logout",
+        "title": "Hacpicr: Logout"
       }
     ]
   },
@@ -58,8 +63,12 @@
     "@types/vscode": "^1.36.0",
     "glob": "^7.1.4",
     "mocha": "^6.1.4",
-    "typescript": "^3.3.1",
     "tslint": "^5.12.1",
+    "typescript": "^3.3.1",
     "vscode-test": "^1.0.2"
+  },
+  "dependencies": {
+    "@types/rx": "^4.1.1",
+    "rxjs": "^6.5.2"
   }
 }

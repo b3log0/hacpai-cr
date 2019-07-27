@@ -1,64 +1,54 @@
 import * as vscode from "vscode";
-export class User {
+const HACKPI_USER = "hacpi.user";
+export interface User {
+  username: string;
+  password: string;
+}
+export class UserService {
   private context: vscode.ExtensionContext;
-  private username: string | undefined;
-  private password: string | undefined;
 
   constructor(context: vscode.ExtensionContext) {
     this.context = context;
   }
 
-  public storeUser() {
-    this.context.globalState.update("hacpi.username", this.username);
-    this.context.globalState.update("hacpi.password", this.password);
+  public get User(): User | undefined {
+    return this.context.globalState.get<User>(HACKPI_USER);
   }
 
-  public getUsername(): any {
-    this.context.globalState.get("hacpi.username");
-  }
-  public getPassword(): any {
-    this.context.globalState.get("hacpi.password");
+  public checkUserLogin(): boolean {
+    return this.User ? true : false;
   }
 
-  public inputUsername(): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-      vscode.window
-        .showInputBox({
-          password: false,
-          ignoreFocusOut: true,
-          placeHolder: "input your username",
-          prompt: "use enter to next steup"
-        })
-        .then(username => {
-          if (username) {
-            this.username = username;
-            resolve(true);
-          } else {
-            vscode.window.showErrorMessage("YOU MUST INPUT THE USER NAME!");
-            reject(false);
-          }
-        });
-    });
+  public inputUser(callback: () => void): void {
+    vscode.window
+      .showInputBox({
+        password: false,
+        ignoreFocusOut: true,
+        placeHolder: "input your username",
+        prompt: "use enter to next steup"
+      })
+      .then(username => {
+        vscode.window
+          .showInputBox({
+            password: true,
+            ignoreFocusOut: true,
+            placeHolder: "input your password",
+            prompt: "use enter to login"
+          })
+          .then(password => {
+            this.context.globalState
+              .update(HACKPI_USER, {
+                username: username,
+                password: password
+              })
+              .then(() => {
+                callback();
+              });
+          });
+      });
   }
 
-  public inputPassword(): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-      vscode.window
-        .showInputBox({
-          password: true,
-          ignoreFocusOut: true,
-          placeHolder: "input your password",
-          prompt: "use enter to login"
-        })
-        .then(password => {
-          if (password) {
-            this.password = password;
-            resolve(true);
-          } else {
-            vscode.window.showErrorMessage("YOU MUST INPUT THE USER PASSWORD!");
-            reject(false);
-          }
-        });
-    });
+  public logoutUser(): void {
+    this.context.globalState.update(HACKPI_USER, null);
   }
 }
