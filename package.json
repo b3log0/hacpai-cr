@@ -10,9 +10,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.hacpicr.welcom",
-    "onCommand:extension.hacpicr.login",
-    "onCommand:extension.hacpicr.logout",
+    "onCommand:extension.hacpicr.signin",
+    "onCommand:extension.hacpicr.signout",
     "onView:view.hacpi.cr"
   ],
   "main": "./out/extension.js",
@@ -36,16 +35,12 @@
     },
     "commands": [
       {
-        "command": "extension.hacpicr.welcom",
-        "title": "Hacpicr: Welcom"
+        "command": "extension.hacpicr.signin",
+        "title": "Hacpicr: Signin"
       },
       {
-        "command": "extension.hacpicr.login",
-        "title": "Hacpicr: Login"
-      },
-      {
-        "command": "extension.hacpicr.logout",
-        "title": "Hacpicr: Logout"
+        "command": "extension.hacpicr.signout",
+        "title": "Hacpicr: Signout"
       }
     ]
   },
@@ -66,9 +61,5 @@
     "tslint": "^5.12.1",
     "typescript": "^3.3.1",
     "vscode-test": "^1.0.2"
-  },
-  "dependencies": {
-    "@types/request": "^2.48.2",
-    "request": "^2.88.0"
   }
 }
