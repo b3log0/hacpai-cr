@@ -40,34 +40,34 @@ export class Oauth {
   }
 
   public async auth() {
-    return this.input().then((signindto: SigninDto) => {
-      axios
+    await this.input().then(async (signindto: SigninDto) => {
+      await axios
         .post("https://hacpai.com/api/v2/login", signindto)
-        .then((response: any) => {
+        .then(async (response: any) => {
           if (response && response.status === 200) {
             if (response.data.sc && response.data.sc === 1) {
               vscode.window.showErrorMessage(response.data.msg);
             } else if (response.data.sc === 0) {
               this.token.saveSignToken(response.data.token);
-              this.filterWsToken();
+              await this.filterWsToken();
             }
           } else {
-            vscode.window.showErrorMessage("unkonw error!");
+            await vscode.window.showErrorMessage("unkonw error!");
           }
         });
     });
   }
 
-  async filterWsToken() {
+  public async filterWsToken() {
     axios
       .get("https://hacpai.com/", {
-        headers: [{ Cookie: `symphony=${this.token.getSignToken()}` }]
+        headers: { cookie: `symphony=${this.token.getSignToken()}` }
       })
-      .then(response => {
-        let regex: RegExp = /wsToken=([a-z0-9]+)/;
-        let ws = (regex.exec(response.data) as RegExpExecArray)[1].toString();
+      .then(async response => {
+        let regex: RegExp = /(?<=wsToken=)[0-9a-z]+/;
+        let ws = (regex.exec(response.data) as RegExpExecArray)[0];
         this.token.saveWsToken(ws);
-        vscode.window.showInformationMessage("sign in successed!");
+        await vscode.window.showInformationMessage("sign in successed!");
       });
   }
 }
