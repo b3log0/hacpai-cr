@@ -14,7 +14,8 @@
     "onCommand:extension.hacpicr.signout",
     "onCommand:extension.hacpicr.connect",
     "onCommand:extension.hacpicr.send",
-    "onView:view.hacpi.cr"
+    "onView:view.hacpi.cr",
+    "onView:view.hacpi.cru"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -31,7 +32,11 @@
       "hacpicr": [
         {
           "id": "view.hacpi.cr",
-          "name": "hacpi Chat Room"
+          "name": "ChatRoom"
+        },
+        {
+          "id": "view.hacpi.cru",
+          "name": "Users"
         }
       ]
     },
