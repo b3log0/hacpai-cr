@@ -3,11 +3,14 @@ import { SigninDto } from "./dto/signin.dto";
 import { STATE_SIGNIN_TOKEN } from "./constants";
 import { encryption } from "./utils/encryption";
 import axios from "axios";
+import { TokenUtil } from "./utils/token.util";
 export class Oauth {
   context: vscode.ExtensionContext;
+  token: TokenUtil;
 
   constructor(context: vscode.ExtensionContext) {
     this.context = context;
+    this.token = new TokenUtil(this.context);
   }
 
   public input(): Promise<SigninDto> {
@@ -38,20 +41,19 @@ export class Oauth {
   }
 
   public async auth() {
-    await this.input().then((signindto: SigninDto) => {
+    return this.input().then((signindto: SigninDto) => {
       axios
         .post("https://hacpai.com/api/v2/login", signindto)
         .then((response: any) => {
           if (response && response.status === 200) {
             if (response.data.sc && response.data.sc === 1) {
               vscode.window.showErrorMessage(response.data.msg);
-            }
-            if (response.data.sc && response.data.sc === 0) {
-              vscode.window.showErrorMessage("sign in successed!");
-              this.context.globalState.update(
-                STATE_SIGNIN_TOKEN,
-                response.data.token
+            } else if (response.data.sc === 0) {
+              this.token.saveSignToken(response.data.token);
+              this.token.saveJessionId(
+                response.headers["set-cookie"][0].split(".")[0].split("=")[1]
               );
+              vscode.window.showInformationMessage("sign in successed!");
             }
           } else {
             vscode.window.showErrorMessage("unkonw error!");
