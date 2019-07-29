@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import { SigninDto } from "./dto/signin.dto";
 import { STATE_SIGNIN_INFO } from "./constants";
 import { encryption } from "./utils/encryption";
-
+import axios from "axios";
 export class Oauth {
   context: vscode.ExtensionContext;
 
@@ -40,7 +40,11 @@ export class Oauth {
       const signinInfo: any = this.context.globalState.get<SigninDto>(
         STATE_SIGNIN_INFO
       );
-      console.log(signinInfo);
+      axios
+        .post("https://hacpai.com/api/v2/login", signinInfo)
+        .then((response: any) => {
+          console.log(response);
+        });
     }
   }
 }
