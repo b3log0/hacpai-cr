@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import * as WebSocket from "ws";
+import * as WebSocket from "websocket";
 import { STATE_WS_TOKEN, STATE_SIGNIN_TOKEN } from "./constants";
 import { TokenUtil } from "./utils/token.util";
 import axios from "axios";
@@ -12,16 +12,16 @@ export class Stomp {
   }
 
   connect(): void {
-    let ws = new WebSocket(
-      `wss://hacpai.com/chat-room-channel?wsToken=${this.context.globalState.get(
-        STATE_WS_TOKEN
-      )}`,
-      { headers: { cookie: `symphony=${this.token.getSignToken()}` } }
-    );
-    ws.pong("123", false);
-    ws.on("pong", (data: any) => {
-      console.log(data);
-    });
+    // let ws = new WebSocket(
+    //   `wss://hacpai.com/chat-room-channel?wsToken=${this.context.globalState.get(
+    //     STATE_WS_TOKEN
+    //   )}`,
+    //   { headers: { cookie: `symphony=${this.token.getSignToken()}` } }
+    // );
+    // ws.pong("123", false);
+    // ws.on("pong", (data: any) => {
+    //   console.log(data);
+    // });
   }
 
   send(): void {
