@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { STATE_SIGNIN_TOKEN, STATE_JESSION_ID } from "../constants";
+import { STATE_SIGNIN_TOKEN, STATE_WS_TOKEN } from "../constants";
 export class TokenUtil {
   context: vscode.ExtensionContext;
 
@@ -15,18 +15,18 @@ export class TokenUtil {
     return this.context.globalState.get<string>(STATE_SIGNIN_TOKEN) as string;
   }
 
-  saveJessionId(jessionid: string): void {
-    this.context.globalState.update(STATE_JESSION_ID, jessionid);
+  saveWsToken(WsToken: string): void {
+    this.context.globalState.update(STATE_WS_TOKEN, WsToken);
   }
 
-  getJessionId(): string {
-    return this.context.globalState.get<string>(STATE_JESSION_ID) as string;
+  getWsToken(): string {
+    return this.context.globalState.get<string>(STATE_WS_TOKEN) as string;
   }
 
   clearSingToken(): void {
     this.context.globalState.update(STATE_SIGNIN_TOKEN, null);
   }
-  clearJessionId(): void {
-    this.context.globalState.update(STATE_JESSION_ID, null);
+  clearWsToken(): void {
+    this.context.globalState.update(STATE_WS_TOKEN, null);
   }
 }

@@ -1,6 +1,5 @@
 import * as vscode from "vscode";
 import { SigninDto } from "./dto/signin.dto";
-import { STATE_SIGNIN_TOKEN } from "./constants";
 import { encryption } from "./utils/encryption";
 import axios from "axios";
 import { TokenUtil } from "./utils/token.util";
@@ -50,15 +49,25 @@ export class Oauth {
               vscode.window.showErrorMessage(response.data.msg);
             } else if (response.data.sc === 0) {
               this.token.saveSignToken(response.data.token);
-              this.token.saveJessionId(
-                response.headers["set-cookie"][0].split(".")[0].split("=")[1]
-              );
-              vscode.window.showInformationMessage("sign in successed!");
+              this.filterWsToken();
             }
           } else {
             vscode.window.showErrorMessage("unkonw error!");
           }
         });
     });
+  }
+
+  async filterWsToken() {
+    axios
+      .get("https://hacpai.com/", {
+        headers: [{ Cookie: `symphony=${this.token.getSignToken()}` }]
+      })
+      .then(response => {
+        let regex: RegExp = /wsToken=([a-z0-9]+)/;
+        let ws = (regex.exec(response.data) as RegExpExecArray)[1].toString();
+        this.token.saveWsToken(ws);
+        vscode.window.showInformationMessage("sign in successed!");
+      });
   }
 }

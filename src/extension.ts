@@ -7,4 +7,5 @@ export function activate(context: vscode.ExtensionContext) {
     await oauth.auth();
   });
 }
-export function deactivate() {}
+export function deactivate() {
+}
