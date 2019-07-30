@@ -3,7 +3,6 @@ import { TokenUtil } from "./utils/token.util";
 import axios from "axios";
 import * as WebSocket from "ws";
 import { STATE_WS_TOKEN, USER_AGENT } from "./constants";
-import { WSAEACCES } from "constants";
 export class Stomp {
   private context: vscode.ExtensionContext;
   private token: TokenUtil;
@@ -32,14 +31,6 @@ export class Stomp {
     client.on("message",(data)=>{
       console.log(data);
     });
-  }
-
-  hearBeat(): void {
-    clearTimeout(this.pingTimeout);
-    this.pingTimeout = setTimeout(() => {
-      console.log("bit");
-    }, 3000);
-    this.pingTimeout();
   }
 
   send(): void {
