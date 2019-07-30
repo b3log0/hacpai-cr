@@ -43,6 +43,9 @@ export class Oauth {
     await this.input().then(async (signindto: SigninDto) => {
       await axios
         .post("https://hacpai.com/api/v2/login", signindto)
+        .catch(error => {
+          vscode.window.showErrorMessage(error);
+        })
         .then(async (response: any) => {
           if (response && response.status === 200) {
             if (response.data.sc && response.data.sc === 1) {
@@ -63,7 +66,10 @@ export class Oauth {
       .get("https://hacpai.com/", {
         headers: { cookie: `symphony=${this.token.getSignToken()}` }
       })
-      .then(async response => {
+      .catch(error => {
+        vscode.window.showErrorMessage(error);
+      })
+      .then(async (response: any) => {
         let regex: RegExp = /(?<=wsToken=)[0-9a-z]+/;
         let ws = (regex.exec(response.data) as RegExpExecArray)[0];
         this.token.saveWsToken(ws);

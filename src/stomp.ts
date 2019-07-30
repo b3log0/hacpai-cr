@@ -1,27 +1,45 @@
 import * as vscode from "vscode";
-import * as WebSocket from "websocket";
-import { STATE_WS_TOKEN, STATE_SIGNIN_TOKEN } from "./constants";
 import { TokenUtil } from "./utils/token.util";
 import axios from "axios";
+import * as WebSocket from "ws";
+import { STATE_WS_TOKEN, USER_AGENT } from "./constants";
+import { WSAEACCES } from "constants";
 export class Stomp {
   private context: vscode.ExtensionContext;
   private token: TokenUtil;
+  pingTimeout: any;
   constructor(context: vscode.ExtensionContext) {
     this.context = context;
     this.token = new TokenUtil(context);
   }
 
-  connect(): void {
-    // let ws = new WebSocket(
-    //   `wss://hacpai.com/chat-room-channel?wsToken=${this.context.globalState.get(
-    //     STATE_WS_TOKEN
-    //   )}`,
-    //   { headers: { cookie: `symphony=${this.token.getSignToken()}` } }
-    // );
-    // ws.pong("123", false);
-    // ws.on("pong", (data: any) => {
-    //   console.log(data);
-    // });
+   connect(): void {
+    let cookie = `symphony=${this.token.getSignToken()}`;
+    let url ="wss://hacpai.com/chat-room-channel?wsToken="+this.context.globalState.get(STATE_WS_TOKEN);
+    const client = new WebSocket(url, {
+      host: "hacpai.com",
+      origin: "https://hacpai.com",
+      headers: {
+        cookie: cookie,
+        "User-Agent": USER_AGENT,
+        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Cache-Control": "no-cache",
+        Connection: "Upgrade",
+        Pragma: "no-cache"
+      }
+    });
+    client.on("message",(data)=>{
+      console.log(data);
+    });
+  }
+
+  hearBeat(): void {
+    clearTimeout(this.pingTimeout);
+    this.pingTimeout = setTimeout(() => {
+      console.log("bit");
+    }, 3000);
+    this.pingTimeout();
   }
 
   send(): void {
@@ -38,9 +56,15 @@ export class Stomp {
             "https://hacpai.com/cr/send",
             { content: msg },
             {
-              headers: { cookie: `symphony=${this.token.getSignToken()}` }
+              headers: {
+                cookie: `symphony=${this.token.getSignToken()}`,
+                "User-Agent": "hacpicr/vscode"
+              }
             }
           )
+          .catch(error => {
+            vscode.window.showErrorMessage(error);
+          })
           .then();
       });
   }
