@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import { TokenUtil } from "./utils/token.util";
 import axios from "axios";
-import * as WebSocket from "ws";
+import * as WebSocket from "websocket";
 import { STATE_WS_TOKEN, USER_AGENT } from "./constants";
 export class Stomp {
   private context: vscode.ExtensionContext;
@@ -12,25 +12,33 @@ export class Stomp {
     this.token = new TokenUtil(context);
   }
 
-   connect(): void {
+  connect(): void {
     let cookie = `symphony=${this.token.getSignToken()}`;
-    let url ="wss://hacpai.com/chat-room-channel?wsToken="+this.context.globalState.get(STATE_WS_TOKEN);
-    const client = new WebSocket(url, {
-      host: "hacpai.com",
-      origin: "https://hacpai.com",
-      headers: {
-        cookie: cookie,
-        "User-Agent": USER_AGENT,
-        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Cache-Control": "no-cache",
-        Connection: "Upgrade",
-        Pragma: "no-cache"
-      }
+    let url =
+      "wss://hacpai.com/chat-room-channel?wsToken=" +
+      this.context.globalState.get(STATE_WS_TOKEN);
+    let client = new WebSocket.client({ webSocketVersion: 13 });
+    client.on("connect", (connection: WebSocket.connection) => {
+      connection.on("error", (error: Error) => {
+        vscode.window.showErrorMessage(error.message);
+      });
+      connection.on("message", (data: WebSocket.IMessage) => {
+        console.log(data);
+      });
+      connection.on("close", (code, desc) => {
+        console.log(code + ":" + desc);
+      });
     });
-    client.on("message",(data)=>{
-      console.log(data);
+    client.on("connectFailed", (error: Error) => {
+      vscode.window.showErrorMessage(error.message);
     });
+    client.connect(
+      url,
+      [],
+      "https://hacpai.com",
+      { cookie: cookie, "User-Agent": USER_AGENT },
+      { headers: { cookie: cookie, "User-Agent": USER_AGENT } }
+    );
   }
 
   send(): void {
@@ -49,7 +57,7 @@ export class Stomp {
             {
               headers: {
                 cookie: `symphony=${this.token.getSignToken()}`,
-                "User-Agent": "hacpicr/vscode"
+                "User-Agent": USER_AGENT
               }
             }
           )
