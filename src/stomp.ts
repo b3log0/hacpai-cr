@@ -17,7 +17,11 @@ export class Stomp {
     let url =
       "wss://hacpai.com/chat-room-channel?wsToken=" +
       this.context.globalState.get(STATE_WS_TOKEN);
-    let client = new WebSocket.client({ webSocketVersion: 13 });
+    let client = new WebSocket.client();
+    let headers = {
+      cookie: cookie,
+      "User-Agent": USER_AGENT
+    };
     client.on("connect", (connection: WebSocket.connection) => {
       connection.on("error", (error: Error) => {
         vscode.window.showErrorMessage(error.message);
@@ -32,13 +36,9 @@ export class Stomp {
     client.on("connectFailed", (error: Error) => {
       vscode.window.showErrorMessage(error.message);
     });
-    client.connect(
-      url,
-      [],
-      "https://hacpai.com",
-      { cookie: cookie, "User-Agent": USER_AGENT },
-      { headers: { cookie: cookie, "User-Agent": USER_AGENT } }
-    );
+    client.connect(url, [], "https://hacpai.com", headers, {
+      headers: headers
+    });
   }
 
   send(): void {
