@@ -5,3 +5,5 @@ export const COMMAND_SIGN_OUT = "extension.hacpicr.signout";
 export const COMMAND_CONNECT = "extension.hacpicr.connect";
 export const COMMAND_SEND = "extension.hacpicr.send";
 export const USER_AGENT = "HacpicrVscode/1.0";
+export const VIEW_CHAT_ROOM ="view.hacpi.cr";
+export const VIEW_CHAT_ROOM_USERS ="view.hacpi.cru";
