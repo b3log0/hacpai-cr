@@ -29,8 +29,10 @@ export class Stomp {
       this.context.globalState.get(STATE_WS_TOKEN);
     let client = new WebSocket.client();
     let headers = {
+      Host: "hacpai.com",
       Cookie: cookie,
-      "User-Agent": USER_AGENT
+      "User-Agent": USER_AGENT,
+      Upgrade: "websocket"
     };
     client.on("connect", (connection: WebSocket.connection) => {
       connection.on("error", (error: Error) => {

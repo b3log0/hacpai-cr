@@ -2,9 +2,11 @@ import * as vscode from "vscode";
 import { STATE_SIGNIN_TOKEN, STATE_WS_TOKEN } from "../constants";
 export class TokenUtil {
   context: vscode.ExtensionContext;
+  tokenUtil:TokenUtil;
 
   constructor(context: vscode.ExtensionContext) {
     this.context = context;
+    this.tokenUtil = new TokenUtil(this.context);
   }
 
   saveSignToken(token: string): void {
