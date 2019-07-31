@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { TokenUtil } from "./token.util";
-import { USER_AGENT } from "./constants";
+import { USER_AGENT, $WS_URL } from "./constants";
 export class HeaderUtil {
   private tokenUtil: TokenUtil;
   constructor(context: vscode.ExtensionContext) {
@@ -17,5 +17,9 @@ export class HeaderUtil {
 
   get headers() {
     return { Cookie: this.cookie, "User-Agent": this.agent };
+  }
+
+  get wsuri(){
+    return $WS_URL+this.tokenUtil.getWsToken();
   }
 }
