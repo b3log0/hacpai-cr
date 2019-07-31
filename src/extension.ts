@@ -1,15 +1,15 @@
 import * as vscode from "vscode";
-import { User } from "./linkstart/user";
+import { User } from ".//user";
 import {
   COMMAND_SIGN_OUT,
   COMMADN_SIGN_IN,
   COMMAND_CONNECT,
   COMMAND_SEND,
   VIEW_CHAT_ROOM
-} from "./linkstart/constants";
-import { ChatRoomClient } from "./linkstart/chatroom.client";
-import { ChatRoomMessageProvider } from "./linkstart/chatroom.message.provider";
-import { ChatRoomUserProvider } from "./linkstart/chatroom.user.provider";
+} from ".//constants";
+import { ChatRoomClient } from ".//chatroom.client";
+import { ChatRoomMessageProvider } from "./chatroom.message.provider";
+import { ChatRoomUserProvider } from "./chatroom.user.provider";
 export function activate(context: vscode.ExtensionContext) {
   const user = new User(context);
   const chatRoomMessageProvider = new ChatRoomMessageProvider();
