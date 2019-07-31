@@ -72,14 +72,6 @@
     "@types/events" "*"
     "@types/node" "*"
 
-"@types/ws@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.npm.taobao.org/@types/ws/download/@types/ws-6.0.1.tgz#ca7a3f3756aa12f62a0a62145ed14c6db25d5a28"
-  integrity sha1-yno/N1aqEvYqCmIUXtFMbbJdWig=
-  dependencies:
-    "@types/events" "*"
-    "@types/node" "*"
-
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.npm.taobao.org/abbrev/download/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -265,11 +257,6 @@ async-each@^1.0.1:
   version "1.0.3"
   resolved "https://registry.npm.taobao.org/async-each/download/async-each-1.0.3.tgz#b727dbf87d7651602f06f4d4ac387f47d91b0cbf"
   integrity sha1-tyfb+H12UWAvBvTUrDh/R9kbDL8=
-
-async-limiter@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npm.taobao.org/async-limiter/download/async-limiter-1.0.0.tgz#78faed8c3d074ab81f22b4e985d79e8738f720f8"
-  integrity sha1-ePrtjD0HSrgfIrTphdeehzj3IPg=
 
 async-settle@^1.0.0:
   version "1.0.0"
@@ -810,9 +797,9 @@ esprima@^4.0.0:
   integrity sha1-E7BM2z5sXRnfkatph6hpVhmwqnE=
 
 esutils@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.npm.taobao.org/esutils/download/esutils-2.0.2.tgz#0abf4f1caa5bcb1f7a9d8acc6dea4faaa04bac9b"
-  integrity sha1-Cr9PHKpbyx96nYrMbepPqqBLrJs=
+  version "2.0.3"
+  resolved "https://registry.npm.taobao.org/esutils/download/esutils-2.0.3.tgz#74d2eb4de0b8da1293711910d50775b9b710ef64"
+  integrity sha1-dNLrTeC42hKTcRkQ1Qd1ubcQ72Q=
 
 execa@^1.0.0:
   version "1.0.0"
@@ -3057,13 +3044,6 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.npm.taobao.org/wrappy/download/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
-
-ws@^7.1.1:
-  version "7.1.1"
-  resolved "https://registry.npm.taobao.org/ws/download/ws-7.1.1.tgz#f9942dc868b6dffb72c14fd8f2ba05f77a4d5983"
-  integrity sha1-+ZQtyGi23/tywU/Y8roF93pNWYM=
-  dependencies:
-    async-limiter "^1.0.0"
 
 xtend@~4.0.0, xtend@~4.0.1:
   version "4.0.2"

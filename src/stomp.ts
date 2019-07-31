@@ -3,23 +3,33 @@ import { TokenUtil } from "./utils/token.util";
 import axios from "axios";
 import * as WebSocket from "websocket";
 import { STATE_WS_TOKEN, USER_AGENT } from "./constants";
+import { ChatRoomMessageProvider } from "./chatroom.message";
 export class Stomp {
   private context: vscode.ExtensionContext;
   private token: TokenUtil;
-  pingTimeout: any;
-  constructor(context: vscode.ExtensionContext) {
+  private provider: ChatRoomMessageProvider;
+  constructor(
+    context: vscode.ExtensionContext,
+    provider: ChatRoomMessageProvider
+  ) {
     this.context = context;
     this.token = new TokenUtil(context);
+    this.provider = provider;
   }
 
   connect(): void {
+    setInterval(() => {
+      this.provider.sendMessage("11111");
+      this.provider.refresh();
+    }, 3000);
+
     let cookie = `symphony=${this.token.getSignToken()}`;
     let url =
       "wss://hacpai.com/chat-room-channel?wsToken=" +
       this.context.globalState.get(STATE_WS_TOKEN);
     let client = new WebSocket.client();
     let headers = {
-      cookie: cookie,
+      Cookie: cookie,
       "User-Agent": USER_AGENT
     };
     client.on("connect", (connection: WebSocket.connection) => {

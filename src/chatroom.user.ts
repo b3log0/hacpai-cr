@@ -8,9 +8,7 @@ export class ChatRoomUserProvider
     return element;
   }
   getChildren(element?: ChatRoomUser): vscode.ProviderResult<ChatRoomUser[]> {
-    return Promise.resolve([
-      new ChatRoomUser("这是一个人"),
-    ]);
+    return Promise.resolve([new ChatRoomUser("这是一个人")]);
   }
   getParent?(element: ChatRoomUser): vscode.ProviderResult<ChatRoomUser> {
     return element;

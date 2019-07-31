@@ -81,12 +81,15 @@ export class Oauth {
   public async singout() {
     this.context.globalState.update(STATE_SIGNIN_TOKEN, null);
     this.context.globalState.update(STATE_WS_TOKEN, null);
-    axios.post("https://hacpai.com/api/v2/logout", null, {
-      headers: { cookie: `symphony=${this.token.getSignToken()}` }
-    }).catch((error:Error)=>{
-      vscode.window.showErrorMessage(error.message);
-    }).then((response)=>{
-      vscode.window.showInformationMessage("Signout Successed");
-    });
+    axios
+      .post("https://hacpai.com/api/v2/logout", null, {
+        headers: { cookie: `symphony=${this.token.getSignToken()}` }
+      })
+      .catch((error: Error) => {
+        vscode.window.showErrorMessage(error.message);
+      })
+      .then(response => {
+        vscode.window.showInformationMessage("Signout Successed");
+      });
   }
 }
