@@ -1,13 +1,34 @@
 {
   "name": "hacpai-cr",
   "displayName": "hacpai-cr",
-  "description": "",
-  "version": "0.0.1",
+  "description": "the plugin of the vscode for the hacpai.com's chat room",
+  "version": "1.0.0",
+  "homepage": "https://hacpai.com/cr",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.36.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ferried/hacpai-cr.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ferried/hacpai-cr/issues",
+    "email": "harlancui@outlook.com"
+  },
+  "publisher": "ferried",
   "categories": [
     "Other"
+  ],
+  "keywords": [
+    "hacpai",
+    "hackpai",
+    "hacpi",
+    "chatroom",
+    "Hacpi",
+    "Hackpi",
+    "Hackpai",
+    "Hacpai"
   ],
   "activationEvents": [
     "onCommand:extension.hacpaicr.signin",
