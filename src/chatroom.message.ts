@@ -7,12 +7,12 @@ export class ChatRoomMessageProvider implements vscode.TreeDataProvider<ChatRoom
   getTreeItem(
     element: ChatRoomMessage
   ): vscode.TreeItem | Thenable<vscode.TreeItem> {
-      return new ChatRoomMessage("这是一条信息");
+    return element;
   }
   getChildren(
     element?: ChatRoomMessage | undefined
   ): vscode.ProviderResult<ChatRoomMessage[]> {
-      return Promise.resolve([new ChatRoomMessage("这是一条信息")]);
+      return Promise.resolve([new ChatRoomMessage("这是一条信息1")]);
   }
 
   getParent?(element: ChatRoomMessage): vscode.ProviderResult<ChatRoomMessage> {

@@ -5,7 +5,7 @@ export class ChatRoomUserProvider
   getTreeItem(
     element: ChatRoomUser
   ): vscode.TreeItem | Thenable<vscode.TreeItem> {
-    return new ChatRoomUser("用户列表");
+    return element;
   }
   getChildren(element?: ChatRoomUser): vscode.ProviderResult<ChatRoomUser[]> {
     return Promise.resolve([
