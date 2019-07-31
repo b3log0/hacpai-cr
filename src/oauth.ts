@@ -3,6 +3,7 @@ import { SigninDto } from "./dto/signin.dto";
 import { encryption } from "./utils/encryption";
 import axios from "axios";
 import { TokenUtil } from "./utils/token.util";
+import { STATE_SIGNIN_TOKEN, STATE_WS_TOKEN } from "./constants";
 export class Oauth {
   context: vscode.ExtensionContext;
   token: TokenUtil;
@@ -75,5 +76,17 @@ export class Oauth {
         this.token.saveWsToken(ws);
         await vscode.window.showInformationMessage("sign in successed!");
       });
+  }
+
+  public async singout() {
+    this.context.globalState.update(STATE_SIGNIN_TOKEN, null);
+    this.context.globalState.update(STATE_WS_TOKEN, null);
+    axios.post("https://hacpai.com/api/v2/logout", null, {
+      headers: { cookie: `symphony=${this.token.getSignToken()}` }
+    }).catch((error:Error)=>{
+      vscode.window.showErrorMessage(error.message);
+    }).then((response)=>{
+      vscode.window.showInformationMessage("Signout Successed");
+    });
   }
 }

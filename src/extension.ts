@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { COMMADN_SIGN_IN, COMMAND_CONNECT, COMMAND_SEND } from "./constants";
+import { COMMADN_SIGN_IN, COMMAND_CONNECT, COMMAND_SEND, COMMAND_SIGN_OUT } from "./constants";
 import { Oauth } from "./oauth";
 import { Stomp } from "./stomp";
 export function activate(context: vscode.ExtensionContext) {
@@ -15,6 +15,10 @@ export function activate(context: vscode.ExtensionContext) {
 
   vscode.commands.registerCommand(COMMAND_SEND, async () => {
     await stomp.send();
+  });
+
+  vscode.commands.registerCommand(COMMAND_SIGN_OUT, async () => {
+    await oauth.singout();
   });
 }
 export function deactivate() {}
