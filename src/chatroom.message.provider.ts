@@ -34,7 +34,7 @@ export class ChatRoomMessageProvider
     this._onDidChangeTreeData.dispose();
   }
 
-  clear() {
+  clean() {
     this.history = [];
     this.refresh();
   }

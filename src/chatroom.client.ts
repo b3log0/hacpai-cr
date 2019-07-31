@@ -1,9 +1,12 @@
 import * as vscode from "vscode";
-import { ChatRoomMessageProvider } from "./chatroom.message.provider";
-import { ChatRoomUserProvider } from "./chatroom.user.provider";
+import {
+  ChatRoomMessageProvider,
+  ChatRoomMessage
+} from "./chatroom.message.provider";
+import { ChatRoomUserProvider, ChatRoomUser } from "./chatroom.user.provider";
 import * as WebSocket from "websocket";
 import { HeaderUtil } from "./header.util";
-import { $HACPI_ORIGIN, $HACPI_HOST, $SEND_URL } from "./constants";
+import { $HACPAI_ORIGIN, $HACPAI_HOST, $SEND_URL } from "./constants";
 import axios from "axios";
 export class ChatRoomClient {
   private context: vscode.ExtensionContext;
@@ -25,7 +28,7 @@ export class ChatRoomClient {
 
   connect() {
     let headers = {
-      Host: $HACPI_HOST,
+      Host: $HACPAI_HOST,
       Cookie: this.headerUtil.cookie,
       "User-Agent": this.headerUtil.cookie,
       Upgrade: "websocket"
@@ -38,18 +41,34 @@ export class ChatRoomClient {
         vscode.window.showErrorMessage(`${code}:${desc}`);
       });
       connection.on("message", data => {
-        console.log(data);
+        if (data.type === "utf8") {
+          let msg = JSON.parse(data.utf8Data as string);
+          console.log(msg);
+          switch (msg.type) {
+            case "online":
+              let users: Array<ChatRoomUser> = [];
+              msg.users.forEach((user: any) => {
+                users.push(new ChatRoomUser(user.userName));
+              });
+              this.userDataProvider.setUsers(users);
+              break;
+            case "msg":
+              this.messageDataProvider.add(new ChatRoomMessage(msg.content));
+              break;
+          }
+        }
       });
     });
     this.client.on("connectFailed", error => {
       vscode.window.showErrorMessage(error.message);
     });
-    this.client.connect(this.headerUtil.wsuri, [], $HACPI_ORIGIN, headers, {
+    this.client.connect(this.headerUtil.wsuri, [], $HACPAI_ORIGIN, headers, {
       headers: headers
     });
   }
 
-  async disconnect() {}
+  async disconnect() {
+  }
 
   send() {
     vscode.window

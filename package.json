@@ -1,6 +1,6 @@
 {
-  "name": "hacpi-cr",
-  "displayName": "hacpi-cr",
+  "name": "hacpai-cr",
+  "displayName": "hacpai-cr",
   "description": "",
   "version": "0.0.1",
   "engines": {
@@ -10,52 +10,52 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.hacpicr.signin",
-    "onCommand:extension.hacpicr.signout",
-    "onCommand:extension.hacpicr.connect",
-    "onCommand:extension.hacpicr.send",
-    "onView:view.hacpi.cr",
-    "onView:view.hacpi.cru"
+    "onCommand:extension.hacpaicr.signin",
+    "onCommand:extension.hacpaicr.signout",
+    "onCommand:extension.hacpaicr.connect",
+    "onCommand:extension.hacpaicr.send",
+    "onView:view.hacpai.cr",
+    "onView:view.hacpai.cru"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "hacpicr",
-          "title": "hacpicr",
-          "icon": "resources/hacpi.svg"
+          "id": "hacpaicr",
+          "title": "hacpaicr",
+          "icon": "resources/hacpai.svg"
         }
       ]
     },
     "views": {
-      "hacpicr": [
+      "hacpaicr": [
         {
-          "id": "view.hacpi.cr",
+          "id": "view.hacpai.cr",
           "name": "ChatRoom"
         },
         {
-          "id": "view.hacpi.cru",
+          "id": "view.hacpai.cru",
           "name": "Users"
         }
       ]
     },
     "commands": [
       {
-        "command": "extension.hacpicr.signin",
-        "title": "Hacpicr: Signin"
+        "command": "extension.hacpaicr.signin",
+        "title": "Hacpaicr: Signin"
       },
       {
-        "command": "extension.hacpicr.signout",
-        "title": "Hacpicr: Signout"
+        "command": "extension.hacpaicr.signout",
+        "title": "Hacpaicr: Signout"
       },
       {
-        "command": "extension.hacpicr.connect",
-        "title": "Hacpicr: Connect"
+        "command": "extension.hacpaicr.connect",
+        "title": "Hacpaicr: Connect"
       },
       {
-        "command": "extension.hacpicr.send",
-        "title": "Hacpicr: Send"
+        "command": "extension.hacpaicr.send",
+        "title": "Hacpaicr: Send"
       }
     ]
   },
