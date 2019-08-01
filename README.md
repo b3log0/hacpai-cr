@@ -39,3 +39,14 @@ if you can see this error
 then you must signout and signin again
 
 <img src="./public/signout.png">
+
+# Thanks List
+
+| | | 
+| --- | --- |
+|<a href="https://github.com/88250?utm_source=hacpai.com"><img style="height:50px" src="./public/D.png"></a> | <a href="https://github.com/vanessa219?utm_source=hacpai.com"><img style="height:50px" src="./public/Vanesssa.jpeg"> </a>| 
+|<a href="https://github.com/JinJianh?utm_source=hacpai.com"><img style="height:50px" src="./public/JinJianh.jpeg"> </a>| <a href="https://github.com/csfwff?utm_source=hacpai.com"><img style="height:50px" src="./public/csfwff.jpeg"> </a>|
+
+# LICENSE
+
+MIT
