@@ -1,4 +1,7 @@
 
+# 凑合使吧！能使就行！
+嘿嘿嘿
+
 # How to use
 
 use `ctrl + shift + p` to show the command's input box  
